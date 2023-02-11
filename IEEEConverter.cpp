@@ -29,7 +29,6 @@ void getNormalizeValue(double num, standardNum *sNa)
 {
     sNa->num = num;
     sNa->exponent = 0;
-
     while (1)
     {
         if ((int)sNa->num == 1)
@@ -98,15 +97,15 @@ int main()
     float set_ur_number_here;
     cout << "Enter a decimal number: ";
     cin >> set_ur_number_here;
-    mantissa_s mantissa_struct;
-    getBitfrom32BitFloating(set_ur_number_here, &mantissa_struct);
+    mantissa_s class_mantissa;
+    getBitfrom32BitFloating(set_ur_number_here, &class_mantissa);
 
-    char *exponentBit = num2BinCharStr(mantissa_struct.exponent, 8);
-    char *mantissaBit = num2BinCharStr(mantissa_struct.mantissa_bit, 23);
+    char *exponentBit = num2BinCharStr(class_mantissa.exponent, 8);
+    char *mantissaBit = num2BinCharStr(class_mantissa.mantissa_bit, 23);
 
-    cout << "Actual Number: " << setprecision(32) << mantissa_struct.actual << endl;
+    cout << "Actual Number: " << setprecision(32) << class_mantissa.actual << endl;
     cout << "Sign: "; 
-    if(mantissa_struct.sign == 1) {
+    if(class_mantissa.sign == 1) {
         cout << "Negative" << endl;
     } else {
         cout << "Positive" << endl;
@@ -114,17 +113,16 @@ int main()
     cout << "Exponent: " << exponentBit << endl;
 
     cout << "Type: ";
-    if(mantissa_struct.denormalized == 1) {
-        cout << "Normalize" << endl;
+    if(class_mantissa.denormalized == 1) {
+        cout << "Normalized" << endl;
     } else {
-        cout << "Denormalize" << endl;
+        cout << "Denormalized" << endl;
     }
     
     cout << "Mantissa: " << mantissaBit << endl;
-    cout << "Bit: " << mantissa_struct.sign << "|" << exponentBit << "|" << mantissaBit << endl;
+    cout << "Bit: " << class_mantissa.sign << "|" << exponentBit << "|" << mantissaBit << endl;
     
     free(exponentBit);              // clean heap
     free(mantissaBit);              // clean heap
-
     return 0;
 }
